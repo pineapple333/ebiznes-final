@@ -8,8 +8,6 @@ const ProductItem = ({product}) => {
 
     const { addProduct, cartItems, increase, decrease, removeProduct } = useContext(CartContext);
 
-    // const countOccurrences = (arr, val) => arr.reduce((a, v) => (v.id === val.id ? a + 1 : a), 0);
-
     const isInCart = cartProduct => {
         return !!cartItems.find(item => item.id === cartProduct.id);
     }
