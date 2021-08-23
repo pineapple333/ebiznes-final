@@ -1,4 +1,5 @@
 # ebiznes-final
+# https://sonarcloud.io/dashboard?id=pineapple333_ebiznes-final
 
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=pineapple333_ebiznes-final&metric=bugs)](https://sonarcloud.io/dashboard?id=pineapple333_ebiznes-final)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=pineapple333_ebiznes-final&metric=code_smells)](https://sonarcloud.io/dashboard?id=pineapple333_ebiznes-final)
