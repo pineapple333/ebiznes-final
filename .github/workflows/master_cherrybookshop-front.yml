@@ -29,7 +29,7 @@ jobs:
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
       with:
-        app-name: amazing-store
+        app-name: cherrybookshop-front
         slot-name: Production
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_7213238a4e3b4008b6f3139d434b325f }}
         package: .
