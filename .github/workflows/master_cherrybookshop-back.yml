@@ -34,8 +34,8 @@ jobs:
       with:
         push: true
         tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_d37328cfaad24e58a35b2d3f4c237bfe }}/newtaskone:${{ github.sha }}
-        file: ./Dockerfile
-
+        file: ${{env.working-directory}}/Dockerfile
+        
   deploy:
     runs-on: ubuntu-latest
     environment:
