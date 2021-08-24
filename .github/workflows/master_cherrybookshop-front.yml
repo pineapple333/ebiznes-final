@@ -7,7 +7,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      working-directory: ./ex_8/store/frontend
+      working-directory: ./frontend
 
     steps:
     # checkout the repo
