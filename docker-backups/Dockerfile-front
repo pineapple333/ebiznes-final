@@ -1,0 +1,40 @@
+FROM ubuntu:18.04
+
+#vim, git, unzip, wget, curl
+RUN apt update && apt install -y \
+	unzip \
+	vim \
+	git \
+	wget \
+	curl
+
+RUN apt-get update &&\
+	apt-get upgrade -y &&\
+    apt-get install -y  software-properties-common
+
+# JS
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install -g npm@latest
+
+EXPOSE 8080
+EXPOSE 5000
+EXPOSE 9000
+
+# creating a user
+RUN useradd -ms /bin/bash yvyshniakov
+RUN adduser yvyshniakov sudo
+
+# creating a working directory
+USER yvyshniakov
+WORKDIR /home/yvyshniakov/
+
+RUN git clone https://github.com/pineapple333/ebiznes-final.git
+
+WORKDIR /home/yvyshniakov/ebiznes-final/frontend/
+
+RUN npm update
+RUN npm install node-sass@4.14.1
+RUN npm install -g serve
+
+ENTRYPOINT serve -s build

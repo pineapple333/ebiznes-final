@@ -47,6 +47,7 @@ RUN curl -sL https://deb.nodesource.com/setup_15.x | bash - &&\
 # exposing ports for React and Play 
 EXPOSE 3000
 EXPOSE 9000
+EXPOSE 8080
 
 # creating a user
 RUN useradd -ms /bin/bash yvyshniakov
@@ -55,11 +56,10 @@ RUN adduser yvyshniakov sudo
 # creating a working directory 
 USER yvyshniakov
 WORKDIR /home/yvyshniakov/
-RUN mkdir /home/yvyshniakov/workshop
 
-# creating a volume that will be exposed to the host
-VOLUME [ "/home/yvyshniakov/workshop" ]
+RUN git clone https://github.com/pineapple333/ebiznes-final.git
 
-# taking packages from sbt so it won't need to happen after the first request, 
-# for example to get the version number
-RUN sbt -V
+WORKDIR /home/yvyshniakov/ebiznes-final/backend/
+
+RUN sbt package
+ENTRYPOINT sbt run
