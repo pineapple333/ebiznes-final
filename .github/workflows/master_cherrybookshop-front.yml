@@ -1,28 +1,35 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy container app to Azure Web App - cherrybookshop-front
-
 on:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
-
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    env:
+      working-directory: ./frontend
 
     steps:
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
+    # checkout the repo
+    - name: 'Checkout Github Action'
+      uses: actions/checkout@master
+
+
+    - name: Set up Node.js version
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+
+    - name: npm install, build, and test
+      run: |
+        CI=false npm install
+        CI=false npm run build --if-present
+      working-directory: ${{env.working-directory}}
+
+    - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'cherrybookshop-front'
-        slot-name: 'production'
+        app-name: cherrybookshop-front
+        slot-name: Production
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_7213238a4e3b4008b6f3139d434b325f }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_d37328cfaad24e58a35b2d3f4c237bfe }}/newtaskone:${{ github.sha }}'
+        package: .
