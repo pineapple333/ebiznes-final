@@ -24,8 +24,14 @@ RUN apk add --update npm && \
     mkdir -p "/usr/local/sbt" && \
     wget -qO - --no-check-certificate "https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.tgz" | tar xz -C /usr/local/sbt --strip-components=1 && sbt sbtVersion
 
+<<<<<<< HEAD
 COPY . .
 EXPOSE ${PLAY_PORT}
+=======
+WORKDIR /src
+COPY backend/ .
+EXPOSE ${REACT_PORT} ${PLAY_PORT}
+>>>>>>> c2c1037b4bde0dcf4f8d2761e4a3a32e7947a5c0
 
 RUN /usr/local/sbt/bin/sbt -Dsbt.rootdir=true package
 ENTRYPOINT bash /usr/local/sbt/bin/sbt -Dsbt.rootdir=true run
